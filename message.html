@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bloop - Messages</title>
+    <style>
+      body {
+        background-color: #000;
+        display: flex;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        color: white;
+      }
+      .sidebar {
+        width: 280px;
+        background-color: black;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        height: 100vh;
+      }
+      .sidebar a {
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 5px;
+      }
+      .sidebar a:hover {
+        background-color: #333;
+      }
+      .main-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .message-sidebar {
+        width: 35%;
+        background-color: #111;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+      .message-content {
+        flex-grow: 1;
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+      }
+      .message-button {
+        background-color: #1d9bf0;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <a href="home.html">🏠 Home</a>
+      <a href="./explore.html">🔍 Explore</a>
+      <a href="./notification.html">🔔 Notifications</a>
+      <a href="./message.html">📩 Messages</a>
+      <a href="./profile.html">👤 Profile</a>
+      <a href="#">⋮ More</a>
+    </div>
+    <div class="main-content">
+      <div class="message-sidebar">
+        <h2>Messages</h2>
+        <p><strong>Welcome to your inbox!</strong></p>
+        <p>
+          Drop a line, share posts, and more with private conversations between
+          you and others on Bloop.
+        </p>
+        <button class="message-button" onclick="openPopup()">
+          Write a message
+        </button>
+      </div>
+      <div class="message-content">
+        <h2>Select a message</h2>
+        <p>
+          Choose from your existing conversations, start a new one, or just keep
+          swimming.
+        </p>
+        <button class="message-button" onclick="openPopup()">
+          New message
+        </button>
+      </div>
+    </div>
+    <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2025/04/01/08/20250401080201-N1VCZNSW.js"></script>
+    <script>
+    </script>
+  </body>
+</html>

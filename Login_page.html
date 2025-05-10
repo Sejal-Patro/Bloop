@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bloop - Login</title>
+    <style>
+      body {
+        background-color: #121212;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        color: white;
+        margin: 0;
+      }
+      .login-container {
+        background-color: #1e1e1e;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+      .login-container img {
+        height: 100px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin-bottom: 30px;
+      }
+      input[type="text"] {
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: none;
+        background-color: #333;
+        color: white;
+      }
+      button {
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        border: none;
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 15px;
+      }
+      button:hover {
+        background-color: #ddd;
+      }
+      .link {
+        color: #aaa;
+        text-decoration: none;
+        font-size: 14px;
+      }
+      .or-divider {
+        margin: 20px 0;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <img src="bloop-logo.png" alt="Bloop Logo" />
+      <h2>Sign in to Bloop</h2>
+
+      <div class="or-divider">or</div>
+
+      <input
+        type="text"
+        id="username"
+        placeholder="Enter your username or email"
+      />
+      <button onclick="login()">Next</button>
+
+      <a class="link" href="#">Forgot password?</a>
+    </div>
+    <script>
+      async function login() {
+        const username = document.getElementById("username").value;
+
+        if (!username.trim()) {
+          alert("Please enter a username or email.");
+          return;
+        }
+
+        try {
+          const res = await fetch("http://localhost:5000/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username }),
+          });
+
+          const data = await res.json();
+
+          if (res.ok) {
+            localStorage.setItem("bloopUser", username);
+            window.location.href = "Home_page.html";
+          } else {
+            alert(data.message || "Login failed");
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Something went wrong. Try again.");
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background-color: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: black;
+            padding: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid #222;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: black;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: 100vh;
+        }
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 5px;
+        }
+        .sidebar a:hover {
+            background-color: #333;
+        }
+        
+
+        .post-btn {
+            width: 90%;
+            background-color: rgb(15, 2, 2);
+            color: black;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 30px;
+            text-align: center;
+            display: block;
+            margin: 20px auto;
+            text-decoration: none;
+        }
+
+        .notifications-container {
+            margin-left: 270px;
+            padding: 20px;
+            width: 50%;
+            border-right: 1px solid #222;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 20px;
+        }
+
+        .tab {
+            cursor: pointer;
+            padding-bottom: 5px;
+        }
+
+        .tab.active {
+            border-bottom: 3px solid #1d9bf0;
+            color: #1d9bf0;
+        }
+
+        .notification-content {
+            display: none;
+        }
+
+        .notification-content.active {
+            display: block;
+        }
+
+        .notification {
+            padding: 10px;
+            border-bottom: 1px solid #222;
+        }
+
+        .push-notification {
+            background-color: #111;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+
+        .turn-on-btn {
+            background-color: white;
+            color: black;
+            font-weight: bold;
+            padding: 8px;
+            border-radius: 20px;
+        }
+        .notification-message {
+            display: none;
+            margin-top: 10px;
+            color: #1d9bf0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="./Home_page.html" class="sidebar-icon">🏠 Home</a>
+        <a href="./explore.html" class="sidebar-icon">🔍 Explore</a>
+        <a href="./notification.html" class="sidebar-icon">🔔 Notifications</a>
+        <a href="./message.html" class="sidebar-icon">📬 Messages</a>
+        <a href="./profile.html" class="sidebar-icon">👤 Profile</a>
+        <a href="#more" class="sidebar-icon">⋯ More</a>
+        <button class="post-button" onclick="createPost()">Post</button>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div class="notifications-container">
+        <div class="notifications-header">
+            <h5>Notifications</h5>
+            <i class="bi bi-gear"></i>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('all')">All</div>
+            <div class="tab" onclick="showTab('verified')">Verified</div>
+            <div class="tab" onclick="showTab('mentions')">Mentions</div>
+        </div>
+
+        <div id="all" class="notification-content active">
+            <div class="notification">
+                <i class="bi bi-x"></i> There was a login to your account from a new device on Mar 03, 2025.
+            </div>
+            <div class="notification">
+                <i class="bi bi-x"></i> There was a login to your account from a new device on Mar 03, 2025.
+            </div>
+        </div>
+
+        <div id="verified" class="notification-content">
+            <div class="notification">
+                <i class="bi bi-check-circle"></i> Your verified badge has been successfully renewed.
+            </div>
+        </div>
+
+        <div id="mentions" class="notification-content">
+            <div class="notification">
+                <i class="bi bi-at"></i> @user123 mentioned you in a post: "Check this out!"
+            </div>
+        </div>
+
+        <div class="push-notification">
+            <h6>Push notifications</h6>
+            <p>Never miss what’s happening on X by enabling push notifications</p>
+            <button class="turn-on-btn" onclick="turnOnNotifications()">Turn on notifications</button>
+            <div id="notification-message" class="notification-message">
+                ✅ Notifications turned on!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.notification-content').forEach(content => content.classList.remove('active'));
+
+            // Add active class to clicked tab
+            document.querySelector([onclick="showTab('${tabName}')"]).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function turnOnNotifications() {
+            document.getElementById("notification-message").style.display = "block";
+        }
+    </script>
+     <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+     <script src="https://files.bpcontent.cloud/2025/04/01/08/20250401080201-N1VCZNSW.js"></script>
+
+</body>
+</html>

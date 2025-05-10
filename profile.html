@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>X Profile Clone</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 280px;
+      background-color: black;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      height: 100vh;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 5px;
+    }
+
+    .sidebar a:hover {
+      background-color: #333;
+    }
+
+    .post-button {
+      background: #1d9bf0;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-align: center;
+    }
+
+    .post-button:hover {
+      background: #1a8cd8;
+    }
+
+    .profile-container {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    .follow-stats {
+      margin-top: 10px;
+      color: #888;
+    }
+
+    .edit-profile {
+      padding: 8px 16px;
+      border: 1px solid #888;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .edit-profile:hover {
+      background: #222;
+    }
+
+    .suggestions,
+    .trending {
+      width: 300px;
+      padding: 20px;
+      border-left: 1px solid #333;
+    }
+
+    .suggestion-item,
+    .trending-item {
+      margin-bottom: 15px;
+    }
+
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #000;
+      border: 1px solid #333;
+      padding: 20px;
+      border-radius: 20px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal input {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background: #111;
+      color: white;
+    }
+
+    .modal button {
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: #1d9bf0;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <a href="./Home_page.html" class="sidebar-icon">🏠 Home</a>
+    <a href="./explore.html" class="sidebar-icon">🔍 Explore</a>
+    <a href="./notification.html" class="sidebar-icon">🔔 Notifications</a>
+    <a href="./message.html" class="sidebar-icon">📬 Messages</a>
+    <a href="./profile.html" class="sidebar-icon">👤 Profile</a>
+    <a href="#more" class="sidebar-icon">⋯ More</a>
+    <button class="post-button" onclick="createPost()">Post</button>
+  </div>
+
+  <div class="profile-container">
+    <div class="profile-header">
+      <img id="userAvatar" src="girl.jpg" alt="Avatar" class="avatar" />
+      <div class="profile-info">
+        <h2 id="userName">User</h2>
+        <p>@User12345</p>
+        <p id="userBio">Lol</p>
+        <div class="follow-stats">82 Following • 3 Followers</div>
+      </div>
+      <button class="edit-profile" onclick="openEditProfile()">Edit profile</button>
+    </div>
+  </div>
+
+  <div class="suggestions">
+    <h3>You might like</h3>
+    <div class="suggestion-item">
+      ⭐ AmiAmi English <button>Follow</button>
+    </div>
+    <div class="suggestion-item">
+      🎮 Crunchyroll Games <button>Follow</button>
+    </div>
+    <div class="suggestion-item">
+      📚 Seven Seas Entertainment <button>Follow</button>
+    </div>
+  </div>
+
+  <div id="editProfileModal" class="modal">
+    <input
+      id="editAvatar"
+      placeholder="Image URL"
+      value="https://via.placeholder.com/100"
+    />
+    <input id="editName" placeholder="Name" value="User" />
+    <input id="editBio" placeholder="Bio" value="Lol" />
+    <input id="editLocation" placeholder="Location" />
+    <input id="editWebsite" placeholder="Website" />
+    <input
+      id="editBirthdate"
+      placeholder="Birth date (e.g., February 13, 2004)"
+    />
+    <button onclick="saveProfile()">Save</button>
+  </div>
+
+  <script>
+    function navigateTo(section) {
+      alert("Navigating to " + section);
+    }
+
+    function createPost() {
+      alert("Create a new post!");
+    }
+
+    function openEditProfile() {
+      document.getElementById("editProfileModal").style.display = "flex";
+    }
+
+    function loadUserProfile() {
+      const user = JSON.parse(localStorage.getItem("bloopUser"));
+      if (user) {
+        document.getElementById("userAvatar").src = user.avatar || "https://via.placeholder.com/100";
+        document.getElementById("userName").textContent = user.username;
+        document.getElementById("userBio").textContent = user.bio || "No bio available";
+      } else {
+        alert("No user data found. Please sign up first.");
+      }
+    }
+
+    function saveProfile() {
+      const avatar = document.getElementById("editAvatar").value;
+      const username = document.getElementById("editName").value;
+      const bio = document.getElementById("editBio").value;
+
+      // Save the updated profile in localStorage
+      const updatedUser = {
+        username,
+        avatar,
+        bio
+      };
+
+      localStorage.setItem("bloopUser", JSON.stringify(updatedUser));
+
+      // Update the profile view
+      document.getElementById("userAvatar").src = avatar;
+      document.getElementById("userName").textContent = username;
+      document.getElementById("userBio").textContent = bio;
+
+      document.getElementById("editProfileModal").style.display = "none";
+    }
+
+    // Load user profile on page load
+    window.onload = loadUserProfile;
+  </script>
+</body>
+</html>
